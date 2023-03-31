@@ -1,2 +1,4 @@
 # PuzzlebotLidar3003B
-Repositorio de Puzzlebot con un Lidar
+Branch de repositrio Puzzle-bot
+
+Branch de antecendes del proyecto Puzzle-bot
