@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<robot name="puzzlebot_param" xmlns:xacro="http://ros.org/wiki/xacro">
+  <xacro:property name="mesh_chassis"  value="$(find puzzlebot_rviz)/src/meshes/MCR2_1000_13_Chassis.stl" />
+  <xacro:property name="mesh_wheel"  value="$(find puzzlebot_rviz)/src/meshes/MCR2_1000_1_1_Wheel_Coupler_2.stl" />
+  <xacro:property name="mesh_puzzlebot"  value="$(find puzzlebot_rviz)/src/meshes/MCR2_1000_0_Puzzlebot.stl" />
+
+  <!--parameters for gazebo properties-->
+  <xacro:property name="PI" value="3.1415926535897931"/>
+
+  <xacro:property name="chassisX" value="0.2"/>
+  <xacro:property name="chassisY" value="0.16"/>
+  <xacro:property name="chassisZ" value="0.06"/>
+  <xacro:property name="chassisMass" value="0.710"/>
+
+  <xacro:property name="casterRadius" value="0.0065"/>
+  <xacro:property name="casterMass" value="0.012"/>
+
+  <xacro:property name="wheelHeight" value="0.01"/>
+  <xacro:property name="wheelRadius" value="0.05"/>
+  <xacro:property name="wheelPos" value="0.05"/>
+  <xacro:property name="wheelDistance" value="0.08"/>
+  <xacro:property name="wheelMass" value="0.03"/>
+
+</robot>
