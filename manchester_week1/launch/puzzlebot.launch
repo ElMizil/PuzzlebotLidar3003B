@@ -1,0 +1,9 @@
+<launch>
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find manchester_week1)/urdf/puzzlebot.xacro'"/>
+  <include file="$(find manchester_week1)/launch/puzzlebot_control.launch"/>
+
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher"/>
+  <node name = "rviz" pkg="rviz" type = "rviz" args = "-d $(find manchester_week1)/rviz/puzzlebot.rviz" required = "true"/>
+  <node name="puzzlebot_sim" pkg="manchester_week1" type="puzzlebot.py"/>
+</launch>
