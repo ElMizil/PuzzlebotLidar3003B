@@ -1,0 +1,148 @@
+<?xml version="1.0"?>
+
+<robot name="puzzlebot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find puzzlebot_rviz)/src/urdf/parameters.xacro" />
+<xacro:include filename="$(find puzzlebot_rviz)/src/urdf/macros.xacro" />
+<xacro:include filename="$(find puzzlebot_rviz)/src/urdf/materials.xacro" />
+<xacro:include filename="$(find puzzlebot_rviz)/src/urdf/puzzlebot.gazebo" />
+
+  <!--PUZZLEBOT -->
+  <link name="base_link">
+    <pose>0 0 0 0 0 0</pose>
+    <visual>
+          <geometry>
+            <mesh filename="file://${mesh_puzzlebot}"/>
+          </geometry> 
+    </visual>
+  </link>
+
+  <joint name="base_link_to_chassis" type="fixed">
+	   <parent link="base_link"/>
+	   <child link="chassis"/>
+  </joint>
+
+  <!--CHASSIS -->
+  <link name="chassis">
+    <pose>0 0 0 0 0 0</pose>
+    <visual>
+    <!-- box only 
+      <origin xyz="0 0 0" rpy="0 0 0"/>        
+          <geometry>
+          	  <box size="${chassisX} ${chassisY} ${chassisZ}"/> 
+          </geometry> -->
+
+       <!-- with mesh  -->
+      <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+          <geometry>
+          	 <mesh filename="file://${mesh_chassis}"/>
+          </geometry> 
+    </visual>
+
+    <collision name="collision_chassis">
+    	<origin rpy="0 0 0" xyz="0 0 0"/>
+          <geometry>
+            	 <box size="${chassisX} ${chassisY} ${chassisZ}"/> 
+          </geometry>
+    </collision>
+    <inertial>
+      <mass value="${chassisMass}"/>    
+      <xacro:box_inertia m="${chassisMass}" x="${chassisX}" y="${chassisY}" z="${chassisZ}" />
+    </inertial>
+
+  
+  <!-- Caster wheel en frame --> 
+    <collision>
+	    <origin xyz="-0.095 0 -0.0425" rpy="0 0 0"/>
+		  <geometry>
+		     <sphere radius="0.0065"/>
+		  </geometry>
+		        <surface>
+	      <friction>
+	         <ode>
+	          <slip1>0.0</slip1>
+	          <slip2>0.0</slip2>
+	         </ode>
+	      </friction>
+      </surface>
+	  </collision>
+
+	  <visual>
+      <origin xyz="-0.095 0 -0.0425" rpy="0 0 0"/>
+          <geometry>
+          	   <sphere radius="0.0065"/>
+          </geometry>
+    </visual>
+ 
+  </link>
+
+  <!--RIGHT WHEEL -->
+	<link name="right_wheel">
+	  <visual>
+	  	<origin xyz="0 0 0" rpy="-${PI/2} 0 0" />
+	    <geometry>
+	      <!-- with mesh-->
+	      	<mesh filename="file://${mesh_wheel}"/>
+	    	<!-- cylinder only 
+	    	<cylinder length="${wheelHeight}" radius="${wheelRadius}"/> -->
+	    </geometry>
+	  </visual>
+
+	  <collision>
+		  <origin xyz="0 0 0 " rpy="-${PI/2} 0 0"/>
+			  <geometry>
+			     <cylinder length="${wheelHeight}" radius="${wheelRadius}" />
+			  </geometry>
+	  </collision>
+	    
+	  <inertial>
+		  <mass value="${wheelMass}"/>
+		  <origin xyz="0 0 0" rpy="${PI/2} 0 0"/>
+		  <xacro:wheel_inertia r="${wheelRadius}" l="${wheelHeight}" m="${wheelMass}"/> 
+	  </inertial> 
+	  
+	</link>
+
+<!-- LEFT WHEEL -->
+	<link name="left_wheel">
+	  <visual>
+	    <geometry>
+        <!-- with mesh-->
+	      	<mesh filename="file://${mesh_wheel}"/>
+	    	<!-- cylinder only 
+	    	<cylinder length="${wheelHeight}" radius="${wheelRadius}"/> -->
+	    </geometry>
+	    <origin xyz="0 0 0" rpy="${PI/2} 0 0" />
+	  </visual>
+	  
+	  <collision>
+		  <origin xyz="0 0 0" rpy="${PI/2} 0 0" />
+		  <geometry>
+		     <cylinder length="${wheelHeight}" radius="${wheelRadius}"/>
+		  </geometry>
+	  </collision>
+	    
+	  <inertial>
+		  <mass value="${wheelMass}"/>
+		  <origin xyz="0 0 0" rpy="${PI/2} 0 0"/>
+		  <xacro:wheel_inertia r="${wheelRadius}" l="${wheelHeight}" m="${wheelMass}" />
+	  </inertial> 
+	</link>
+
+  <!-- JOINTS  --> 
+
+  <joint name="base_to_right_w" type="continuous">
+	  <parent link="chassis" />
+	  <child link="right_wheel" />
+	  <origin xyz="0.05 -0.096 0.0" />
+		<axis xyz="0 1 0" rpy="0 0 0" />
+	</joint>
+
+	<joint name="base_to_left_w" type="continuous">
+	  <parent link="chassis" />
+	  <child link="left_wheel" />
+	  <origin xyz="0.05 0.096 0" />
+	  <axis xyz="0 1 0" rpy="0 0 0" />
+	</joint> 
+
+</robot>
