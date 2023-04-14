@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<launch>
-    <master auto="start"/>
-    <include file="$(find puzzlebot_world)/launch/puzzlebot_tec_simple_world.launch"/>
-    <node pkg="puzzlebot_control" name="Basic_controller" type="control.py" args="" output="screen"/>
-</launch>
