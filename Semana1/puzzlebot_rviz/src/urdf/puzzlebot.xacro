@@ -26,18 +26,30 @@
   <link name="chassis">
     <pose>0 0 0 0 0 0</pose>
     <visual>
-    <origin xyz="0 0 0" rpy="1.5 0 1.5"/>
+    <!-- box only 
+      <origin xyz="0 0 0" rpy="0 0 0"/>        
           <geometry>
-            <mesh filename="file://${mesh_chassis}"/>
+          	  <box size="${chassisX} ${chassisY} ${chassisZ}"/> 
+          </geometry> -->
+
+       <!-- with mesh  -->
+      <origin xyz="0 0 0" rpy="${PI/2} 0 ${PI/2}"/>
+          <geometry>
+          	 <mesh filename="file://${mesh_chassis}"/>
           </geometry> 
     </visual>
-  
-  <collision name="collision_chassis">
+
+    <collision name="collision_chassis">
     	<origin rpy="0 0 0" xyz="0 0 0"/>
           <geometry>
-            	 <box size="0.2 0.16 0.06"/> 
+            	 <box size="${chassisX} ${chassisY} ${chassisZ}"/> 
           </geometry>
     </collision>
+    <inertial>
+      <mass value="${chassisMass}"/>    
+      <xacro:box_inertia m="${chassisMass}" x="${chassisX}" y="${chassisY}" z="${chassisZ}" />
+    </inertial>
+
   
   <!-- Caster wheel en frame --> 
     <collision>
@@ -67,38 +79,54 @@
   <!--RIGHT WHEEL -->
 	<link name="right_wheel">
 	  <visual>
+	  	<origin xyz="0 0 0" rpy="-${PI/2} 0 0" />
 	    <geometry>
+	      <!-- with mesh-->
 	      	<mesh filename="file://${mesh_wheel}"/>
+	    	<!-- cylinder only 
+	    	<cylinder length="${wheelHeight}" radius="${wheelRadius}"/> -->
 	    </geometry>
-      <origin xyz="0 0 0" rpy="-1.5 0 0" />
 	  </visual>
 
-    <collision>
-		  <origin xyz="0 0 0 " rpy="-1.5 0 0"/>
+	  <collision>
+		  <origin xyz="0 0 0 " rpy="-${PI/2} 0 0"/>
 			  <geometry>
-			     <cylinder length="0.01" radius="0.05" />
+			     <cylinder length="${wheelHeight}" radius="${wheelRadius}" />
 			  </geometry>
 	  </collision>
-
+	    
+	  <inertial>
+		  <mass value="${wheelMass}"/>
+		  <origin xyz="0 0 0" rpy="${PI/2} 0 0"/>
+		  <xacro:wheel_inertia r="${wheelRadius}" l="${wheelHeight}" m="${wheelMass}"/> 
+	  </inertial> 
+	  
 	</link>
 
-  <!-- LEFT WHEEL -->
+<!-- LEFT WHEEL -->
 	<link name="left_wheel">
 	  <visual>
 	    <geometry>
         <!-- with mesh-->
 	      	<mesh filename="file://${mesh_wheel}"/>
+	    	<!-- cylinder only 
+	    	<cylinder length="${wheelHeight}" radius="${wheelRadius}"/> -->
 	    </geometry>
-      <origin xyz="0 0 0" rpy="1.5 0 0" />
+	    <origin xyz="0 0 0" rpy="${PI/2} 0 0" />
 	  </visual>
-
-    <collision>
-		  <origin xyz="0 0 0" rpy="1.5 0 0" />
+	  
+	  <collision>
+		  <origin xyz="0 0 0" rpy="${PI/2} 0 0" />
 		  <geometry>
-		     <cylinder length="0.01" radius="0.05"/>
+		     <cylinder length="${wheelHeight}" radius="${wheelRadius}"/>
 		  </geometry>
 	  </collision>
-
+	    
+	  <inertial>
+		  <mass value="${wheelMass}"/>
+		  <origin xyz="0 0 0" rpy="${PI/2} 0 0"/>
+		  <xacro:wheel_inertia r="${wheelRadius}" l="${wheelHeight}" m="${wheelMass}" />
+	  </inertial> 
 	</link>
 
   <!-- JOINTS  --> 
@@ -115,8 +143,6 @@
 	  <child link="left_wheel" />
 	  <origin xyz="0.05 0.096 0" />
 	  <axis xyz="0 1 0" rpy="0 0 0" />
-	</joint>
-
-<!---->
+	</joint> 
 
 </robot>
