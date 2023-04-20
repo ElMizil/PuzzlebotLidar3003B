@@ -1,0 +1,16 @@
+topics: {
+  odom:     odom,
+  cmd_vel_input:  cmd_vel_intput,
+  cmd_vel: cmd_vel,
+  cmd_pwmL: cmd_pwmL,
+  cmd_pwmR: cmd_pwmR,
+  cmd_wR: cmd_wR,
+  cmd_wL: cmd_wL
+}
+parameters: {
+  loop_rate:  1000,
+  mode: 1, # 1 = send robot linear and angular velocities | 2 = send left and right wheel angular velocities | 3 = send left and right motor PWM values
+  Kp: 0.1,
+  Ti: 0.05,
+  Td: 0.0
+}

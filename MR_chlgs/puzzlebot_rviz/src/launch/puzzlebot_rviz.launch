@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<launch>
+  <!--Rviz-->
+  <!--Cargar robot description -->
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find puzzlebot_gazebo)/urdf/puzzlebot.xacro'" />
+
+  <!-- Nodos-->
+  <node name="puzzlebotkinematic_model" type="puzzlebotkinematic_model.py" pkg="puzzlebot_sim" respawn = "false"/>
+  
+  <!--Publicar a cmd_vel-->
+  <!--node pkg="rostopic" type="rostopic" name="cmd_vel" args="pub /cmd_vel geometry_msgs/Twist '{linear: {x: 0.1, y: 0.0, z: 0.0}, angular: {x: 0.0,y: 0.0,z: 0.0}}'" output="screen"/-->
+  
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen"/>
+
+  <node name="joint_state_publisher"  pkg="joint_state_publisher" type="joint_state_publisher"/> 
+
+  <!--Rviz File -->
+  <node name = "rviz" pkg="rviz" type = "rviz" args = "-d $(find puzzlebot_rviz)/src/rviz/puzzlebot.rviz" required = "true"/>
+
+
+</launch>
