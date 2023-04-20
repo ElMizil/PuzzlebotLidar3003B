@@ -24,6 +24,23 @@ rosrun puzzlebot_sim time_control.py
 ```
 *NO incluido en los archivos launch*
 
+## Diagrama de flujo
+```mermaid
+flowchart LR
+    A(Start) -->Z[reps=0] 
+    Z --> B[InitialPos=0, time=0]
+    B -->|Get cmd_vel| C[Set wheels vel]
+    C -->D[Calculate pose and transforms]
+    D -->F{time==5s?}
+    F -->|No| D
+    F -->|Yes| H
+    H[Print pose]
+    H -->I{reps==20?}
+    I--> |No| B
+    I --> |Yes| J
+    J(End)
+```
+
 
 # Reto Semana 2
 # Reto Semana 3
