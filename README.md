@@ -22,8 +22,13 @@ flowchart TD
     I --> |Yes| J
     J(End)
 ```
-
+```
+roslaunch manchester_week1 puzzlebot.launch py:=puzzlebot.py
+```
 # Reto Semana 2
+```
+roslaunch manchester_week1 puzzlebot.launch py:=odometry.py
+```
 # Reto Semana 3
 # Reto Semana 4
 # Reto Semana 5
