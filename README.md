@@ -41,8 +41,16 @@ flowchart LR
     J(End)
 ```
 
-
 # Reto Semana 2
+## Diagrama de flujo
+```mermaid
+flowchart LR
+    A(Start) -->|Get cmd_vel| B[Set wheels vel]
+    B -->C[Calculate pose, odom and transforms]
+    C -->D[Calculate covariance matrix] 
+    D -->|Print pose and odom| E(End)
+```
+
 # Reto Semana 3
 # Reto Semana 4
 # Reto Semana 5
