@@ -51,6 +51,39 @@ flowchart LR
     D -->|Print pose and odom| E(End)
 ```
 
-# Reto Semana 3
 # Reto Semana 4
+BUG0
+```mermaid
+flowchart TD
+    A(Inicio) -->B[Calcular camino a la meta]
+    B -->C{Llego a la meta?}
+    C -->|Si| Z[Fin] 
+    C -->|No| D[Ir hacia la meta]
+    D --> E{Obstaculo?}
+    E -->|No| C
+    E -->|Si| F[Seguir pared]
+    F -->G{Puede seguir a la meta?} 
+    G -->|Si| D
+    G -->|No| F
+```
+   
+BUG2
+```mermaid
+flowchart TD
+    A(Inicio) -->B[Calcular linea-m]
+    B -->C{Llego a la meta?}
+    C -->|Si| Z[Fin] 
+    C -->|No| D[Ir hacia la meta siguiendo la linea]
+    D --> E{Obstaculo?}
+    E -->|No| C
+    E -->|Si| F[Recordar ubicacion del encuentro-hitpoint]
+    F -->G[Seguir pared]
+    G -->H{Linea-m o leave-point?}
+    H -->|No| G
+    H -->|Si| I{DistLeavePoint < DistHitpoint hasta meta?}
+    I -->|Si| J[Dejar pared]
+    I -->|No| G
+    J --> D
+```
+
 # Reto Semana 5
